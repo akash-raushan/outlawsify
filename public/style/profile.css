@@ -1,0 +1,101 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: -webkit-linear-gradient(left, #003366, #004080, #0059b3, #0073e6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.back{
+    position: absolute;
+    color: #fff;
+    top: 5%;
+    left: 5%;
+    font-size: 24px;
+    display: flex;
+    cursor: pointer;
+}
+
+.container {
+    overflow: hidden;
+    width: 40%;
+    max-width: 390px;
+    max-height: 500px;
+    height: 70vh;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffffa2;
+    backdrop-filter: blur(10px);
+}
+
+.container .user-img {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    left: 38%;
+}
+
+.container .user-img img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.container .profile-detail {
+    position: relative;
+    left: 21%;
+    top: 3%;
+    font-size: 30px;
+    font-weight: 400;
+    font-family: 'arial black';
+}
+
+.container .info {
+    position: relative;
+    left:7%;
+    top: 14%;
+}
+
+.container .info table td{
+    height: 60px;
+    width: 1000px;
+}
+
+
+.container .info .attribute {
+    color: #4c4c4c;
+    font-size: 26px;
+
+}
+
+.container .info .value {
+    position: relative;
+    color: #0b1320;
+    left: 3rem;
+    font-size: 18px;
+}
+
+@media screen and (max-width:680px) {
+    .container{
+        width: 70%;
+    }
+    .container table{
+        /* position: absolute; */
+        left: 0rem;
+    }
+}
+
+@media  screen and (max-width:470px) {
+    .container{
+        width: 80%;
+    }
+    .container .info{
+        left: -0%;
+    }
+}

@@ -1,0 +1,53 @@
+# Node.js modules
+node_modules/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Database files
+*.db
+*.sqlite
+
+# Build output
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Operating system specific files
+.DS_Store
+Thumbs.db
+
+# Uploaded files
+audio/ 
+# Posters/
+# artists/
+# dp/  
+ 
+
+# Text files that may contain sensitive information
+*.txt
+
+# HTML files that are not part of the source code
+previous-index.html
+previous-signup.html
+
+# Any other files or directories you want to ignore
+gg.txt
+scriptText.js
+ttt.js
+# arijit old without hosted img.js
+# darshan old without hosted img.js
+# hustle old without hosted img.js
+# jalraj old without hosted img.js
+signup.js
