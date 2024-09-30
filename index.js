@@ -5,43 +5,40 @@ const multer = require("multer");
 const session = require("express-session");
 const path = require('path');
 
-
 const app = express();
 const port = 3000; 
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-
 app.use(express.static("public"));
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, 'public')));
-
-// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Configure session middleware
 app.use(
   session({
     secret: "ffff",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: false,    // Disable secure for local development
+      maxAge: 24 * 60 * 60 * 1000,  // 24 hours
+      sameSite: 'lax'   // Adjust sameSite if needed
+    }
   })
 );
 
+// MongoDB connection
 // const uri = "mongodb://127.0.0.1:27017/music_user";
 const uri = "mongodb+srv://akash_raushan_:akash12345@cluster0.cjsil.mongodb.net/music_user";
-
-// Connect to MongoDB using Mongoose
 mongoose.connect(uri);
-
 const db = mongoose.connection;
+
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
-  // console.log("Connected to MongoDB.");
-
-  // Start the server after successful DB connection
   app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
@@ -89,7 +86,16 @@ app.post("/login", async (req, res) => {
     if (result) {
       if (submit) {
         req.session.user = result;
-        res.redirect("/welcome");
+
+        // Force session to save
+        req.session.save((err) => {
+          if (err) {
+            console.log("Session save error:", err);
+            return res.status(500).send("Internal Server Error");
+          }
+          res.redirect("/welcome");
+        });
+
         const { user, email, password, userImgSrc } = result;
         data = [user, email, password, userImgSrc];
       } else {
@@ -105,13 +111,14 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Routes
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
 app.get("/login", (req, res) => {
   if (req.session && req.session.user) {
-    imgUrl = data[3];
+    const imgUrl = data[3];
     res.render("welcome.ejs", { userImgURL: imgUrl });
   } else {
     res.render("index.ejs", { errorMessage: "" });
@@ -119,45 +126,10 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/welcome", (req, res) => {
+  console.log(req.session.user);  // Check if session is being set properly
   if (req.session && req.session.user) {
-    imgUrl = data[3];
+    const imgUrl = data[3];
     res.render("welcome.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/darshan", (req, res) => {
-  if (req.session && req.session.user) {
-    imgUrl = data[3];
-    res.render("welcome.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/jalraj", (req, res) => {
-  if (req.session && req.session.user) {
-    imgUrl = data[3];
-    res.render("jalraj.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/hustle", (req, res) => {
-  if (req.session && req.session.user) {
-    imgUrl = data[3];
-    res.render("hustle.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/arijit", (req, res) => {
-  if (req.session && req.session.user) {
-    imgUrl = data[3];
-    res.render("arijit.ejs", { userImgURL: imgUrl });
   } else {
     res.redirect("/login");
   }
@@ -186,6 +158,7 @@ app.get("/signup", (req, res) => {
   res.render("index.ejs", { errorMessage: "" });
 });
 
+// File upload setup with Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/img/dp");
@@ -262,6 +235,7 @@ process.on("SIGINT", async () => {
   }
 });
 
+// Function to log all users
 const getAllUsers = async () => {
   try {
     const allUsers = await User.find();
@@ -273,7 +247,6 @@ const getAllUsers = async () => {
         "UserImgSrc"
     );
 
-    // Log each row in tabular format
     allUsers.forEach((user) => {
       console.log(
         user.user.padEnd(20) +
@@ -287,8 +260,6 @@ const getAllUsers = async () => {
   }
 };
 
-// Call the function to get and log all users
 getAllUsers();
-
 
 module.exports = app;
