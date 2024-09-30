@@ -134,6 +134,42 @@ app.get("/welcome", (req, res) => {
     res.redirect("/login");
   }
 });
+app.get("/darshan", (req, res) => {
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("welcome.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get("/hustle", (req, res) => {
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("hustle.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get("/jalraj", (req, res) => {
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("jalraj.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
+});
+app.get("/arijit", (req, res) => {
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("arijit.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
+});
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
