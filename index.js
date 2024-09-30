@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const path = require('path');
 
 const app = express();
@@ -17,23 +18,12 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configure session middleware
-app.use(
-  session({
-    secret: "ffff",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,    // Disable secure for local development
-      maxAge: 24 * 60 * 60 * 1000,  // 24 hours
-      sameSite: 'lax'   // Adjust sameSite if needed
-    }
-  })
-);
+
+
 
 // MongoDB connection
-// const uri = "mongodb://127.0.0.1:27017/music_user";
-const uri = "mongodb+srv://akash_raushan_:akash12345@cluster0.cjsil.mongodb.net/music_user";
+const uri = "mongodb://127.0.0.1:27017/music_user";
+// const uri = "mongodb+srv://akash_raushan_:akash12345@cluster0.cjsil.mongodb.net/music_user";
 mongoose.connect(uri);
 const db = mongoose.connection;
 
@@ -56,6 +46,32 @@ const userSchema = new mongoose.Schema(
 );
 
 const User = mongoose.model("User", userSchema);
+
+
+// Configure session middleware
+// app.use(
+//   session({
+//     secret: "ffff",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: false,    // Disable secure for local development
+//       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
+//       sameSite: 'lax'   // Adjust sameSite if needed
+//     }
+//   })
+// );
+
+app.use(
+  session({
+    secret: "ffff",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: uri }),
+    cookie: { maxAge: 1000 * 60 * 60, secure: false }  // 1 hour expiration
+  })
+);
+
 
 // Middleware to parse JSON and form data
 app.use(bodyParser.json());
@@ -125,76 +141,85 @@ app.get("/login", (req, res) => {
   }
 });
 
-// app.get("/welcome", (req, res) => {
-//   console.log(req.session.user);  // Check if session is being set properly
-//   if (req.session && req.session.user) {
-//     const imgUrl = data[3];
-//     res.render("welcome.ejs", { userImgURL: imgUrl });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.get("/darshan", (req, res) => {
-//   console.log(req.session.user);  // Check if session is being set properly
-//   if (req.session && req.session.user) {
-//     const imgUrl = data[3];
-//     res.render("welcome.ejs", { userImgURL: imgUrl });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.get("/hustle", (req, res) => {
-//   console.log(req.session.user);  // Check if session is being set properly
-//   if (req.session && req.session.user) {
-//     const imgUrl = data[3];
-//     res.render("hustle.ejs", { userImgURL: imgUrl });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.get("/jalraj", (req, res) => {
-//   console.log(req.session.user);  // Check if session is being set properly
-//   if (req.session && req.session.user) {
-//     const imgUrl = data[3];
-//     res.render("jalraj.ejs", { userImgURL: imgUrl });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
-// app.get("/arijit", (req, res) => {
-//   console.log(req.session.user);  // Check if session is being set properly
-//   if (req.session && req.session.user) {
-//     const imgUrl = data[3];
-//     res.render("arijit.ejs", { userImgURL: imgUrl });
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
-
 app.get("/welcome", (req, res) => {
-  const imgUrl = data[3];
-  res.render("welcome.ejs", { userImgURL: imgUrl });
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("welcome.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
 });
+
 app.get("/darshan", (req, res) => {
-  const imgUrl = data[3];
-  res.render("welcome.ejs", { userImgURL: imgUrl });
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("welcome.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
 });
+
 app.get("/hustle", (req, res) => {
-  const imgUrl = data[3];
-  res.render("hustle.ejs", { userImgURL: imgUrl });
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("hustle.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
 });
+
 app.get("/jalraj", (req, res) => {
-  const imgUrl = data[3];
-  res.render("jalraj.ejs", { userImgURL: imgUrl });
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("jalraj.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
 });
+
 app.get("/arijit", (req, res) => {
-  const imgUrl = data[3];
-  res.render("arijit.ejs", { userImgURL: imgUrl });
+  console.log(req.session.user);  // Check if session is being set properly
+  if (req.session && req.session.user) {
+    const imgUrl = data[3];
+    res.render("arijit.ejs", { userImgURL: imgUrl });
+  } else {
+    res.redirect("/login");
+  }
 });
+
+// app.get("/welcome", (req, res) => {
+//   const imgUrl = data[3];
+//   res.render("welcome.ejs", { userImgURL: imgUrl });
+// });
+// app.get("/darshan", (req, res) => {
+//   const imgUrl = data[3];
+//   res.render("welcome.ejs", { userImgURL: imgUrl });
+// });
+// app.get("/hustle", (req, res) => {
+//   const imgUrl = data[3];
+//   res.render("hustle.ejs", { userImgURL: imgUrl });
+// });
+// app.get("/jalraj", (req, res) => {
+//   const imgUrl = data[3];
+//   res.render("jalraj.ejs", { userImgURL: imgUrl });
+// });
+// app.get("/arijit", (req, res) => {
+//   const imgUrl = data[3];
+//   res.render("arijit.ejs", { userImgURL: imgUrl });
+// });
+// app.get("/profile", (req, res) => {
+//   const [name, email, password, src] = data;
+//   res.render("profile.ejs", {
+//     urname: name,
+//     uremail: email,
+//     urpassword: password,
+//     imgSrc: src,
+//   });;
+// });
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
