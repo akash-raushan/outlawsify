@@ -6,7 +6,7 @@ const session = require("express-session");
 const path = require('path');
 
 const app = express();
-const port = 3000; 
+const port = 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -125,50 +125,75 @@ app.get("/login", (req, res) => {
   }
 });
 
+// app.get("/welcome", (req, res) => {
+//   console.log(req.session.user);  // Check if session is being set properly
+//   if (req.session && req.session.user) {
+//     const imgUrl = data[3];
+//     res.render("welcome.ejs", { userImgURL: imgUrl });
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
+// app.get("/darshan", (req, res) => {
+//   console.log(req.session.user);  // Check if session is being set properly
+//   if (req.session && req.session.user) {
+//     const imgUrl = data[3];
+//     res.render("welcome.ejs", { userImgURL: imgUrl });
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
+// app.get("/hustle", (req, res) => {
+//   console.log(req.session.user);  // Check if session is being set properly
+//   if (req.session && req.session.user) {
+//     const imgUrl = data[3];
+//     res.render("hustle.ejs", { userImgURL: imgUrl });
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
+// app.get("/jalraj", (req, res) => {
+//   console.log(req.session.user);  // Check if session is being set properly
+//   if (req.session && req.session.user) {
+//     const imgUrl = data[3];
+//     res.render("jalraj.ejs", { userImgURL: imgUrl });
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
+// app.get("/arijit", (req, res) => {
+//   console.log(req.session.user);  // Check if session is being set properly
+//   if (req.session && req.session.user) {
+//     const imgUrl = data[3];
+//     res.render("arijit.ejs", { userImgURL: imgUrl });
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
 app.get("/welcome", (req, res) => {
-  console.log(req.session.user);  // Check if session is being set properly
-  if (req.session && req.session.user) {
-    const imgUrl = data[3];
-    res.render("welcome.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
+  const imgUrl = data[3];
+  res.render("welcome.ejs", { userImgURL: imgUrl });
 });
 app.get("/darshan", (req, res) => {
-  console.log(req.session.user);  // Check if session is being set properly
-  if (req.session && req.session.user) {
-    const imgUrl = data[3];
-    res.render("welcome.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
+  const imgUrl = data[3];
+  res.render("welcome.ejs", { userImgURL: imgUrl });
 });
 app.get("/hustle", (req, res) => {
-  console.log(req.session.user);  // Check if session is being set properly
-  if (req.session && req.session.user) {
-    const imgUrl = data[3];
-    res.render("hustle.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
+  const imgUrl = data[3];
+  res.render("hustle.ejs", { userImgURL: imgUrl });
 });
 app.get("/jalraj", (req, res) => {
-  console.log(req.session.user);  // Check if session is being set properly
-  if (req.session && req.session.user) {
-    const imgUrl = data[3];
-    res.render("jalraj.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
+  const imgUrl = data[3];
+  res.render("jalraj.ejs", { userImgURL: imgUrl });
 });
 app.get("/arijit", (req, res) => {
-  console.log(req.session.user);  // Check if session is being set properly
-  if (req.session && req.session.user) {
-    const imgUrl = data[3];
-    res.render("arijit.ejs", { userImgURL: imgUrl });
-  } else {
-    res.redirect("/login");
-  }
+  const imgUrl = data[3];
+  res.render("arijit.ejs", { userImgURL: imgUrl });
 });
 
 app.get("/logout", (req, res) => {
@@ -278,17 +303,17 @@ const getAllUsers = async () => {
     console.log("All data inside the user collection:");
     console.log(
       "User".padEnd(20) +
-        "Email".padEnd(30) +
-        "Password".padEnd(20) +
-        "UserImgSrc"
+      "Email".padEnd(30) +
+      "Password".padEnd(20) +
+      "UserImgSrc"
     );
 
     allUsers.forEach((user) => {
       console.log(
         user.user.padEnd(20) +
-          user.email.padEnd(30) +
-          user.password.padEnd(20) +
-          user.userImgSrc
+        user.email.padEnd(30) +
+        user.password.padEnd(20) +
+        user.userImgSrc
       );
     });
   } catch (err) {
