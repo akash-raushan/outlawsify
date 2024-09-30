@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // MongoDB connection
-const uri = "mongodb://127.0.0.1:27017/music_user";
-// const uri = "mongodb+srv://akash_raushan_:akash12345@cluster0.cjsil.mongodb.net/music_user";
+// const uri = "mongodb://127.0.0.1:27017/music_user";
+const uri = "mongodb+srv://akash_raushan_:akash12345@cluster0.cjsil.mongodb.net/music_user";
 mongoose.connect(uri);
 const db = mongoose.connection;
 
