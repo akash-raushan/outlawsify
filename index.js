@@ -191,35 +191,6 @@ app.get("/arijit", (req, res) => {
   }
 });
 
-// app.get("/welcome", (req, res) => {
-//   const imgUrl = data[3];
-//   res.render("welcome.ejs", { userImgURL: imgUrl });
-// });
-// app.get("/darshan", (req, res) => {
-//   const imgUrl = data[3];
-//   res.render("welcome.ejs", { userImgURL: imgUrl });
-// });
-// app.get("/hustle", (req, res) => {
-//   const imgUrl = data[3];
-//   res.render("hustle.ejs", { userImgURL: imgUrl });
-// });
-// app.get("/jalraj", (req, res) => {
-//   const imgUrl = data[3];
-//   res.render("jalraj.ejs", { userImgURL: imgUrl });
-// });
-// app.get("/arijit", (req, res) => {
-//   const imgUrl = data[3];
-//   res.render("arijit.ejs", { userImgURL: imgUrl });
-// });
-// app.get("/profile", (req, res) => {
-//   const [name, email, password, src] = data;
-//   res.render("profile.ejs", {
-//     urname: name,
-//     uremail: email,
-//     urpassword: password,
-//     imgSrc: src,
-//   });;
-// });
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
