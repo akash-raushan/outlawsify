@@ -78,12 +78,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // LOGIN
-var data = [
-  "akash",
-  "1167@gmail.com",
-  "admin",
-  "img/artists/darshan-raval.jpg",
-];
+// var data = [
+//   "akash",
+//   "1167@gmail.com",
+//   "admin",
+//   "img/artists/darshan-raval.jpg",
+// ];
+
+var data=[]
 
 app.post("/login", async (req, res) => {
   const { user_name, user_password, captchaInput, captchaOutput } = req.body;
